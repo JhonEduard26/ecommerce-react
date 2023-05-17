@@ -1,5 +1,9 @@
+import { Layout } from "../layout/Layout"
+
 export const Account = () => {
   return (
-    <div>Account</div>
+    <Layout>
+      <div>Account</div>
+    </Layout>
   )
 }

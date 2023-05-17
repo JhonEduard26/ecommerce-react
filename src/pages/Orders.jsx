@@ -1,5 +1,9 @@
+import { Layout } from "../layout/Layout"
+
 export const Orders = () => {
   return (
-    <div>Orders</div>
+    <Layout>
+      <div>Orders</div>
+    </Layout>
   )
 }
