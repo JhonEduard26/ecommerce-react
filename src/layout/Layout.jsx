@@ -4,7 +4,7 @@ export const Layout = ({ children }) => {
   return (
     <>
       <Navbar />
-      <div>{children}</div>
+      <div className="flex flex-col items-center mt-8">{children}</div>
     </>
   )
 }
