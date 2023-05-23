@@ -7,9 +7,7 @@ import './index.css'
 import { ShoppingCartProvider } from './context/ShoppingCartContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
     <ShoppingCartProvider>
       <RouterProvider router={router} />
     </ShoppingCartProvider>
-  </React.StrictMode>,
 )
