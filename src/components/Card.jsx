@@ -1,6 +1,6 @@
-import React, { useContext } from "react"
+import { useContext, useState } from "react"
+
 import { ShoppingCartContext } from "../context/ShoppingCartContext"
-import { useState } from "react"
 
 export const Card = ({category, title, price, images}) => {
   const {count, setCount} = useContext(ShoppingCartContext)
@@ -16,7 +16,7 @@ export const Card = ({category, title, price, images}) => {
           alt="headphones"
         />
         <button 
-          className="absolute top-2 right-1 flex justify-center items-center w-6 h-6 rounded-full bg-white/60 disabled:bg-gray-100"
+          className="absolute top-2 right-1 flex justify-center items-center w-6 h-6 rounded-full bg-white/60 disabled:bg-white"
           type="button"
           onClick={() => {
             setCount(count + 1)
@@ -24,7 +24,15 @@ export const Card = ({category, title, price, images}) => {
           }}
           disabled={isSelected}
           >
-          {isSelected ? "✔" : "+"}
+          {isSelected ? (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+          )}
         </button>
       </figure>
       <p className="flex justify-between px-2 items-center h-1/5 text-sm"> 

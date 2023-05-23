@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+
 import { Card } from "../components/Card"
+import { ProductDetail } from "../components/ProductDetail"
 import { Layout } from "../layout/Layout"
-import { useEffect } from "react"
 
 export const Home = () => {
   const [data, setData] = useState([])
@@ -22,6 +23,7 @@ export const Home = () => {
           ))
         }
       </div>
+      <ProductDetail />
     </Layout>
   )
 }
