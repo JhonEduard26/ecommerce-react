@@ -16,8 +16,6 @@ export const ShoppingCartProvider = ({ children }) => {
   })
   const [cartProducts, setCartProducts] = useState([])
 
-  console.log('CART: ', cartProducts)
-
   return (
     <ShoppingCartContext.Provider value={{
       count,
