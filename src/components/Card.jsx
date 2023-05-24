@@ -2,12 +2,33 @@ import { useContext, useState } from "react"
 
 import { ShoppingCartContext } from "../context/ShoppingCartContext"
 
-export const Card = ({category, title, price, images}) => {
-  const {count, setCount} = useContext(ShoppingCartContext)
+export const Card = ({ category, title, price, images, description, id }) => {
+  const { count, setCount, setShowDetail, setActiveProduct, cartProducts, setCartProducts } = useContext(ShoppingCartContext)
   const [isSelected, setIsSelected] = useState(false)
 
+  const showProduct = () => {
+    setShowDetail(true)
+    setActiveProduct({
+      category,
+      description,
+      id,
+      images,
+      price,
+      title
+    })
+  }
+
+  const handleAddToCart = () => {
+    setCount(count + 1)
+    setIsSelected(true)
+    setCartProducts([...cartProducts, { category, description, id, title, price, images }])
+  }
+
   return (
-    <div className="cursor-pointer w-56 h-60 border bg-white rounded-lg">
+    <div
+      className="cursor-pointer w-56 h-60 border bg-white rounded-lg"
+      onClick={() => showProduct()}
+    >
       <figure className="relative w-full h-4/5">
         <span className="absolute bottom-2 left-1 rounded-full px-2 py-1 text-xs bg-white/60">{category.name}</span>
         <img
@@ -18,10 +39,7 @@ export const Card = ({category, title, price, images}) => {
         <button 
           className="absolute top-2 right-1 flex justify-center items-center w-6 h-6 rounded-full bg-white/60 disabled:bg-white"
           type="button"
-          onClick={() => {
-            setCount(count + 1)
-            setIsSelected(true)
-          }}
+          onClick={() => handleAddToCart()}
           disabled={isSelected}
           >
           {isSelected ? (
