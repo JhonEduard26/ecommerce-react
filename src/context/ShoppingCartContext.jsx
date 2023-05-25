@@ -15,7 +15,7 @@ export const ShoppingCartProvider = ({ children }) => {
     title: '',
   })
   const [cartProducts, setCartProducts] = useState([])
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState(localStorage.getItem('orders') ? JSON.parse(localStorage.getItem('orders')) : [])
 
   return (
     <ShoppingCartContext.Provider value={{

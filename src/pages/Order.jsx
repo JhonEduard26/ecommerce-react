@@ -3,11 +3,13 @@ import { Layout } from "../layout/Layout"
 import { ShoppingCartContext } from "../context/ShoppingCartContext"
 import { OrderCard } from "../components/OrderCard"
 import { getTotal } from "../utils/getTotal"
+import { useLocalStorage } from "../hooks/useLocalStorage"
 
 export const Order = () => {
   const { cartProducts, setCartProducts, orders, setOrders } = useContext(ShoppingCartContext)
-
   const isCartEmpty = cartProducts.length === 0
+
+  const [items, saveItem] = useLocalStorage()
 
   const handleCheckout = () => {
     const orderToAdd = {
@@ -17,8 +19,9 @@ export const Order = () => {
       total: getTotal(cartProducts),
       date: new Date().toLocaleDateString(),
     }
-    setOrders([...orders, orderToAdd])
+    setOrders([orderToAdd, ...orders])
     setCartProducts([])
+    saveItem([orderToAdd, ...items])
   }
 
 
