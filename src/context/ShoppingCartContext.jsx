@@ -1,9 +1,8 @@
-import { useState, createContext } from "react"
+import { createContext, useState, useEffect } from "react"
 
 export const ShoppingCartContext = createContext()
 
 export const ShoppingCartProvider = ({ children }) => {
-  const [count, setCount] = useState(0)
   const [showDetail, setShowDetail] = useState(false)
   const [activeProduct, setActiveProduct] = useState({
     category: {
@@ -14,13 +13,18 @@ export const ShoppingCartProvider = ({ children }) => {
     price: 0,
     title: '',
   })
+  const [items, setItems] = useState([])
   const [cartProducts, setCartProducts] = useState([])
   const [orders, setOrders] = useState(localStorage.getItem('orders') ? JSON.parse(localStorage.getItem('orders')) : [])
 
+  useEffect(() => {
+    fetch(`https://api.escuelajs.co/api/v1/products?offset=0&limit=20`)
+      .then((response) => response.json())
+      .then((data) => setItems(data))
+  }, [])
+
   return (
     <ShoppingCartContext.Provider value={{
-      count,
-      setCount,
       showDetail,
       setShowDetail,
       activeProduct,
@@ -29,6 +33,8 @@ export const ShoppingCartProvider = ({ children }) => {
       setCartProducts,
       orders,
       setOrders,
+      items,
+      setItems
     }}>
       {children}
     </ShoppingCartContext.Provider>

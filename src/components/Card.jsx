@@ -3,7 +3,7 @@ import { useContext, useState } from "react"
 import { ShoppingCartContext } from "../context/ShoppingCartContext"
 
 export const Card = ({ category, title, price, images, description, id }) => {
-  const { count, setCount, setShowDetail, setActiveProduct, cartProducts, setCartProducts } = useContext(ShoppingCartContext)
+  const { setShowDetail, setActiveProduct, cartProducts, setCartProducts } = useContext(ShoppingCartContext)
   const [isSelected, setIsSelected] = useState(false)
 
   const showProduct = () => {
@@ -23,7 +23,6 @@ export const Card = ({ category, title, price, images, description, id }) => {
     if (product) {
       return
     }
-    setCount(count + 1)
     setIsSelected(true)
     setCartProducts([...cartProducts, { category, description, id, title, price, images }])
   }
@@ -67,7 +66,7 @@ export const Card = ({ category, title, price, images, description, id }) => {
         </button>
       </figure>
       <p className="flex justify-between px-2 items-center h-1/5 text-sm"> 
-        <span>{title}</span>
+        <span className="overflow-hidden text-ellipsis">{title}</span>
         <span className="font-bold">${price}</span>
       </p>
     </div>
