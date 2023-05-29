@@ -1,4 +1,5 @@
 import { useContext, useState } from "react"
+import { useLocation } from "react-router-dom"
 
 import { Card } from "../components/Card"
 import { Layout } from "../layout/Layout"
@@ -9,13 +10,26 @@ export const Home = () => {
   const [searchByTitle, setSearchByTitle] = useState('')
   const [filteredItems, setFilteredItems] = useState([])
   const { items } = useContext(ShoppingCartContext)
+  const { pathname } = useLocation()
 
   const handleFilteredItems = (event) => {
     const wordToSearch = event.target.value.trim().toLowerCase()
     setSearchByTitle(wordToSearch)
-    
+
     const itemsFiltered = items.filter(item => item.title.toLowerCase().includes(wordToSearch))
     setFilteredItems(itemsFiltered)
+  }
+
+  const path = pathname.replace('/', '')
+
+  const renderCards = () => {
+    if (!path) return items.map(card => <Card key={card.id} {...card} />)
+    else  {
+      if (path === 'all') return items.map(card => <Card key={card.id} {...card} />)
+      return items
+        .filter(item => item.category.name.toLowerCase() === path)
+        .map(card => <Card key={card.id} {...card} />)
+    }
   }
 
   return (
@@ -32,7 +46,7 @@ export const Home = () => {
       <div className="grid grid-cols-3 gap-4 w-full max-w-screen-md">
         {
           searchByTitle.length === 0 
-          ? items.map(card => <Card key={card.id} {...card} />)
+          ? renderCards()
           : filteredItems.map(card => <Card key={card.id} {...card} />)
         } 
       </div>

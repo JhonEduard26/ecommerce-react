@@ -4,7 +4,29 @@ import { Account, Home, Login, NotFound, Order, Orders } from '../pages'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />
+    element: <Home />,
+    children: [
+      {
+        path: '/all',
+        element: <Home />
+      },
+      {
+        path: '/clothes',
+        element: <Home />
+      },
+      {
+        path: '/electronics',
+        element: <Home />
+      },
+      {
+        path: '/furniture',
+        element: <Home />
+      },
+      {
+        path: '/toys',
+        element: <Home />
+      },
+    ]
   },
   {
     path: '/login',
